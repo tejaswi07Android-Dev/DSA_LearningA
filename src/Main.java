@@ -347,6 +347,32 @@ public class Main {
         return result;
     }
 
+    static int sdf(int x) {
+        var isPositive = true;
+        if (x < 0) {
+            isPositive = false;
+            x = -x;
+        }
+
+        int result = 0;
+        while (x != 0) {
+            int digit = x % 10;
+            if (result > Integer.MAX_VALUE / 10 || (result == Integer.MAX_VALUE / 10 && digit > 7)) {
+                return 0;
+            }
+            if (result < Integer.MIN_VALUE / 10) {
+                return 0;
+            }
+            result = result * 10 + digit;
+            x /= 10;
+        }
+
+        if (!isPositive) {
+            result = -result;
+        }
+        return result;
+    }
+
     static int countSquares(int[][] matrix) {
         int rows = matrix.length;
         int columns = matrix[0].length;
