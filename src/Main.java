@@ -1066,6 +1066,26 @@ public class Main {
         return true;
     }
 
+
+    List<Integer> ans = new ArrayList();
+    public void helper(int[] A, int n, int B){
+        if(n == A.length) return;
+
+        if(A[n] == B) ans.add(n);
+        helper(A, n+1, B);
+
+    }
+
+    public int[] allIndices(int[] A, int B) {
+        ans.clear();
+
+        helper(A, 0 , B);
+        int[] res = new int[ans.size()];
+        for(int i = 0; i < ans.size(); i++){
+            res[i] = ans.get(i);
+        }
+        return res;
+    }
 }
 
 
