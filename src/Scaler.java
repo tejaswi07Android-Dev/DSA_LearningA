@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 public class Scaler {
 
@@ -24,7 +23,8 @@ public class Scaler {
 //        returnSpiral(5);
 //        System.out.println(squareSum(5));
 //        System.out.println(fun(2,10));
-        System.out.println(foo(3,5));
+//        System.out.println(isPrime(3));
+
     }
 
 
@@ -538,6 +538,61 @@ public class Scaler {
     static int foo(int x, int y){
         if(y==0) return 1;
         return bar(x, foo(x, y-1));
+    }
+
+
+    public int solve(int A, int[] B) {
+        HashSet<Integer> set = new HashSet<>();
+
+        for(int i : B){
+            int c = A - i;
+            if(set.contains(c)){
+                return 1;
+            } else{
+                set.add(i);
+            }
+        }
+        return 0;
+    }
+
+    public int vll(int[] A){
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        for(int n : A){
+            map.put(n , map.getOrDefault(n , 0)+1);
+        }
+        int ans = 0;
+        for(Integer key : map.keySet()){
+            if(map.get(key) ==1){
+                ans++;
+            }
+        }
+
+        return ans;
+    }
+
+    public static ArrayList<ArrayList<Integer>> performOps(ArrayList<ArrayList<Integer>> A) {
+        ArrayList<ArrayList<Integer>> B = new ArrayList<ArrayList<Integer>>();
+        for (int i = 0; i < A.size(); i++) {
+            B.add(new ArrayList<Integer>());
+
+            for (int j = 0; j < A.get(i).size(); j++) {
+                B.get(i).add(0);
+            }
+
+            for (int j = 0; j < A.get(i).size(); j++) {
+                B.get(i).set(A.get(i).size() - 1 - j, A.get(i).get(j));
+            }
+        }
+        return B;
+    }
+
+    public boolean isPrime(int A) {
+        if(A == 1) return false;
+        for (int i = 2; i*i <= A; i++) {
+            if (i < A && A % i == 0) return false;
+        }
+        return true;
     }
 
 }
