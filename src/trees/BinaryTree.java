@@ -24,21 +24,26 @@ class BinaryTree {
 
 */
 
-        System.out.print("InOrder: ");
-        printInorder(tree);
-        System.out.println();
-        System.out.print("PreOrder: ");
-        printPreorder(tree);
-        System.out.println();
-        System.out.print("PostOrder: ");
-        printPostorder(tree);
-        System.out.println();
-        System.out.print("LevelOrder: ");
-        levelOrderPrint(tree);
-        System.out.println();
-        zigZagOrderPrint(tree);
-        System.out.println();
-        simpleLevelOrderPrint(tree);
+//        System.out.print("InOrder: ");
+//        printInorder(tree);
+//        System.out.println();
+//        System.out.print("PreOrder: ");
+//        printPreorder(tree);
+//        System.out.println();
+//        System.out.print("PostOrder: ");
+//        printPostorder(tree);
+//        System.out.println();
+//        System.out.print("LevelOrder: ");
+//        levelOrderPrint(tree);
+//        System.out.println();
+//        zigZagOrderPrint(tree);
+//        System.out.println();
+//        simpleLevelOrderPrint(tree);
+
+        System.out.println(rightView(tree));
+
+
+
     }
 
     public static void printInorder(Node n) {
@@ -182,6 +187,35 @@ class BinaryTree {
         temp.right = null;
 
         return temp;
+    }
+
+
+    public static List<Integer> rightView(Node root){
+        Queue<Node> q = new LinkedList<>();
+        List<Integer> rightView = new ArrayList<>();
+        q.add(root);
+
+        while (!q.isEmpty()){
+            int size = q.size();
+
+            for (int i = 0; i < size; i++){
+                Node t = q.poll();
+
+                if(t.left != null){
+                    q.add(t.left);
+                }
+                if (t.right != null){
+                    q.add(t.right);
+                }
+
+                if(i == size -1){
+                    rightView.add(t.data);
+                }
+            }
+        }
+
+
+        return rightView;
     }
 
 
