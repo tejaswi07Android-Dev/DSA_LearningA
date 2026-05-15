@@ -68,6 +68,28 @@ public class Main {
 
         System.out.println(d);
 
+        ArrayList<Integer> temp = new ArrayList<>();
+        temp.add(1);
+        temp.add(2);
+//        temp.add(3);
+
+        ArrayList<Integer> temp2 = new ArrayList<>();
+        temp2.add(4);
+        temp2.add(5);
+//        temp2.add(6);
+
+        ArrayList<Integer> temp3 = new ArrayList<>();
+        temp3.add(7);
+        temp3.add(8);
+//        temp3.add(9);
+
+        List<ArrayList<Integer>> A = new ArrayList<>();
+        A.add(temp);
+        A.add(temp2);
+        A.add(temp3);
+
+        System.out.println(spiralOrder(A));
+
 
     }
 
@@ -99,7 +121,6 @@ public class Main {
 
         return roman.toString();
     }
-
 
     public static void stars() {
         var scanner = new Scanner(System.in);
@@ -202,7 +223,6 @@ public class Main {
         return result;
     }
 
-
     public static String gcdOfStrings(String str1, String str2) {
         HashSet<Character> res = new HashSet<>();
         StringBuilder result = new StringBuilder();
@@ -221,9 +241,8 @@ public class Main {
         return result.toString();
     }
 
-
     public static int[] plusOne(int[] digits) {
-        int n = 0;
+        int n = 1;
         int[] newRes = new int[n];
         if (digits[0] == 9) {
             n = digits.length + 1;
@@ -319,7 +338,6 @@ public class Main {
 
         return val.size();
     }
-
 
     static int reverse(int x) {
         var isPositive = true;
@@ -642,12 +660,11 @@ public class Main {
         return count;
     }
 
-
     public static boolean kLengthApart(int[] nums, int k) {
         boolean ans = true;
         int count = 0;
         boolean nowAdd = false;
-        ArrayList<Integer> counts = new ArrayList();
+        ArrayList<Integer> counts = new ArrayList<>();
 
         for (int i = 0; i < nums.length; i++) {
             if (nums[i] == 0) {
@@ -673,7 +690,6 @@ public class Main {
 
     }
 
-
     public static int findFinalValue(int[] nums, int k) {
         int ans = k;
         boolean check = true;
@@ -695,7 +711,7 @@ public class Main {
     }
 
     public static List<Boolean> prefixesDivBy5(int[] nums) {
-        List<Boolean> ans = new ArrayList();
+        List<Boolean> ans = new ArrayList<>();
         for (int num : nums) {
             if (Integer.parseInt(String.valueOf(num), 2) % 5 == 0) {
                 ans.add(true);
@@ -725,7 +741,6 @@ public class Main {
 
         return maxLen;
     }
-
 
     public static int longestSubWithK(String s, int k) {
         HashMap<Character, Integer> map = new HashMap<>();
@@ -804,7 +819,6 @@ public class Main {
         return minLen == Integer.MAX_VALUE ? "" : s.substring(minLeft, minLeft + minLen);
     }
 
-
     public static int[] maxSlidingWindow(int[] nums, int k) {
         int n = nums.length;
         int[] ans = new int[n - k + 1];
@@ -849,12 +863,12 @@ public class Main {
     }
 
     public static boolean containsDuplicate(int[] nums) {
-        HashSet<Integer> check = new HashSet();
-        for (int i = 0; i < nums.length; i++) {
-            if (check.contains(nums[i])) {
+        HashSet<Integer> check = new HashSet<>();
+        for (int num : nums) {
+            if (check.contains(num)) {
                 return true;
             }
-            check.add(nums[i]);
+            check.add(num);
         }
         return false;
     }
@@ -890,8 +904,8 @@ public class Main {
         int ans = 0;
         HashMap<Integer, Integer> map = new HashMap<>();
         map.put(0, 1);
-        for (int j = 0; j < nums.length; j++) {
-            sum += nums[j];
+        for (int num : nums) {
+            sum += num;
             if (map.containsKey(sum - k)) {
                 ans += map.get(sum - k);
             }
@@ -917,12 +931,12 @@ public class Main {
     }
 
     public static int repeatedNTimes(int[] nums) {
-        HashSet set = new HashSet();
-        for (int i = 0; i < nums.length; i++){
-            if(set.contains(nums[i])){
-                return nums[i];
-            }else{
-                set.add(nums[i]);
+        HashSet<Integer> set = new HashSet<>();
+        for (int num : nums) {
+            if (set.contains(num)) {
+                return num;
+            } else {
+                set.add(num);
             }
         }
         return 0;
@@ -932,8 +946,8 @@ public class Main {
         int r;
         int l = 0;
 
-        for(r = 0; r < nums.length ; r++){
-            if(nums[r] != 0){
+        for (r = 0; r < nums.length; r++) {
+            if (nums[r] != 0) {
                 int temp = nums[r];
                 nums[r] = nums[l];
                 nums[l] = temp;
@@ -946,11 +960,11 @@ public class Main {
 
     public static int maxArea(int[] height) {
         int ans = 1;
-        int r,l = 0;
-        for(r = 0; r < height.length; r++){
+        int r, l = 0;
+        for (r = 0; r < height.length; r++) {
 
-            ans = Math.max(ans, area(Math.min(height[l], height[r]), r-l));
-            if(height[l] < height[r]){
+            ans = Math.max(ans, area(Math.min(height[l], height[r]), r - l));
+            if (height[l] < height[r]) {
                 l++;
             }
 
@@ -960,35 +974,35 @@ public class Main {
         return ans;
     }
 
-    public static int area(int a, int b){
-        return a*b;
+    public static int area(int a, int b) {
+        return a * b;
     }
 
-    public static int[] twoSums(int[] arr, int target){
+    public static int[] twoSums(int[] arr, int target) {
         HashMap<Integer, Integer> map = new HashMap<>();
-        for(int i = 0; i < arr.length; i++){
+        for (int i = 0; i < arr.length; i++) {
             int comp = target - arr[i];
-            if(map.containsKey(comp)){
+            if (map.containsKey(comp)) {
                 return new int[]{map.get(comp), i};
-            }else {
+            } else {
                 map.put(arr[i], i);
             }
         }
         return new int[]{};
     }
 
-    public static int lngSubString(String s){
+    public static int lngSubString(String s) {
         int l = 0;
         int ans = 0;
         HashSet<Character> set = new HashSet<>();
 
-        for(int r = 0; r < s.length(); r++){
-            while (set.contains(s.charAt(r))){
+        for (int r = 0; r < s.length(); r++) {
+            while (set.contains(s.charAt(r))) {
                 set.remove(s.charAt(l));
                 l++;
             }
             set.add(s.charAt(r));
-            ans = Math.max(ans, r-l+1);
+            ans = Math.max(ans, r - l + 1);
         }
         return ans;
 
@@ -1019,43 +1033,45 @@ public class Main {
         return merged.toArray(new int[merged.size()][]);
     }
 
-    public static boolean isAnagram(String s, String t){
-        if(s.length() != t.length() || s.isEmpty()){
+    public static boolean isAnagram(String s, String t) {
+        if (s.length() != t.length() || s.isEmpty()) {
             return false;
         }
         HashMap<Character, Integer> map = new HashMap<>();
         HashMap<Character, Integer> map2 = new HashMap<>();
-        for(int i = 0; i< s.length(); i++){
-            map.put(s.charAt(i), map.getOrDefault(s.charAt(i),0) +1);
+        for (int i = 0; i < s.length(); i++) {
+            map.put(s.charAt(i), map.getOrDefault(s.charAt(i), 0) + 1);
         }
-        for(int i = 0; i< t.length(); i++){
-            map2.put(t.charAt(i), map2.getOrDefault(t.charAt(i),0) +1);
+        for (int i = 0; i < t.length(); i++) {
+            map2.put(t.charAt(i), map2.getOrDefault(t.charAt(i), 0) + 1);
         }
 
-        for(char ch : map.keySet()){
-            if(!Objects.equals(map2.get(ch), map.get(ch))){
+        for (char ch : map.keySet()) {
+            if (!Objects.equals(map2.get(ch), map.get(ch))) {
                 return false;
             }
         }
         return true;
 
     }
-    public static boolean isAnagrams(String s, String t){
-        if(s.length() != t.length()){
+
+    public static boolean isAnagrams(String s, String t) {
+        if (s.length() != t.length()) {
             return false;
         }
         HashMap<Character, Integer> map = new HashMap<>();
-        for(int i =0; i < s.length() ; i++){
-            map.put(s.charAt(i), map.getOrDefault(s.charAt(i), 0)+1);
-            map.put(t.charAt(i), map.getOrDefault(t.charAt(i), 0)-1);
+        for (int i = 0; i < s.length(); i++) {
+            map.put(s.charAt(i), map.getOrDefault(s.charAt(i), 0) + 1);
+            map.put(t.charAt(i), map.getOrDefault(t.charAt(i), 0) - 1);
         }
 
-        for(int vl : map.values()){
-            if(vl != 0) return false;
+        for (int vl : map.values()) {
+            if (vl != 0) return false;
         }
         return true;
     }
-    boolean containsDuplicates(int[] nums){
+
+    boolean containsDuplicates(int[] nums) {
         HashSet<Integer> set = new HashSet<>();
         for (int num : nums) {
             if (set.contains(num)) {
@@ -1066,25 +1082,82 @@ public class Main {
         return true;
     }
 
+    List<Integer> ans = new ArrayList<>();
 
-    List<Integer> ans = new ArrayList();
-    public void helper(int[] A, int n, int B){
-        if(n == A.length) return;
+    public void helper(int[] A, int n, int B) {
+        if (n == A.length) return;
 
-        if(A[n] == B) ans.add(n);
-        helper(A, n+1, B);
+        if (A[n] == B) ans.add(n);
+        helper(A, n + 1, B);
 
     }
 
     public int[] allIndices(int[] A, int B) {
         ans.clear();
 
-        helper(A, 0 , B);
+        helper(A, 0, B);
         int[] res = new int[ans.size()];
-        for(int i = 0; i < ans.size(); i++){
+        for (int i = 0; i < ans.size(); i++) {
             res[i] = ans.get(i);
         }
         return res;
+    }
+
+    public static ArrayList<Integer> spiralOrder(final List<ArrayList<Integer>> A) {
+
+        ArrayList<Integer> ans = new ArrayList<>();
+
+        int i = 0;
+        int j = 0;
+
+        int h = A.size();
+        int l = A.getFirst().size();
+
+
+        while (j <= l - 1) {
+            ans.add(A.getFirst().get(j));
+            j++;
+        }
+
+        while (i <= h - 1) {
+            ans.add(A.get(i).get(j));
+            i++;
+        }
+
+        while (j > 1) {
+            ans.add(A.get(h - 1).get(j));
+            j--;
+        }
+
+        while (i > 1) {
+            ans.add(A.get(i).getFirst());
+            i--;
+        }
+        return ans;
+    }
+
+    public int trap(final List<Integer> A) {
+        int n = A.size();
+        int[] leftMax = new int[n];
+        int[] rightMax = new int[n];
+
+        leftMax[0] = 0;
+        rightMax[n - 1] = 0;
+
+        for (int i = 1; i < n - 1; i++) {
+            leftMax[i] = Math.max(leftMax[i - 1], A.get(i));
+            rightMax[n - i - 1] = Math.max(rightMax[n - i], A.get(n - i));
+        }
+        int ans = 0;
+        for (int i = 0; i < n; i++) {
+            int r = Math.min(leftMax[i], rightMax[i]);
+            if (r > A.get(i)) {
+                ans += r - A.get(i);
+            }
+        }
+
+        return ans;
+
     }
 }
 

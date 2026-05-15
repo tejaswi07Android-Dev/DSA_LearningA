@@ -1,8 +1,14 @@
-package trees;
+package trees.binary_tree;
 
 import java.util.*;
 
 class BinaryTree {
+
+    static class Node{
+        int data;
+        Node right;
+        Node left;
+    }
     public static void main(String[] args) {
 
         Node tree = addNewNode(1);
