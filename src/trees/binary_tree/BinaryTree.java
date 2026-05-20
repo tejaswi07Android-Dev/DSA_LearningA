@@ -46,7 +46,7 @@ class BinaryTree {
 //        System.out.println();
 //        simpleLevelOrderPrint(tree);
 
-        System.out.println(rightView(tree));
+        System.out.println(solve(tree));
 
 
 
@@ -224,6 +224,39 @@ class BinaryTree {
         return rightView;
     }
 
+    public static ArrayList<Integer> solve(Node A) {
+        Queue<Node> q = new LinkedList<>();
+        ArrayList<Integer> ans = new ArrayList<>();
+
+
+        q.add(A);
+
+        if(A==null) return ans;
+
+
+        while(!q.isEmpty()){
+            int s = q.size();
+            for(int i = 0; i < s;i++){
+                Node temp = q.poll();
+
+                if(i == s-1) ans.add(temp.data);
+
+                if(temp.left != null){
+                    q.add(temp.left);
+                }
+
+                if(temp.right != null){
+                    q.add(temp.right);
+                }
+
+            }
+
+        }
+
+        return ans;
+
+
+    }
 
 }
 

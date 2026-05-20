@@ -594,5 +594,29 @@ public class Scaler {
         }
         return true;
     }
+    public int firstMissingPositive(ArrayList<Integer> A) {
+        int n = A.size();
+
+        for (int i = 0; i < A.size(); i++){
+            int s = A.get(i);
+            if(s<n && s > 0){
+                int temp = A.get(s-1);
+                A.add(s-1, A.get(i));
+                A.add(i, temp);
+            }
+
+        }
+
+        for(int i = 0; i < n ; i++){
+            if(A.get(i) != i+1){
+                return i+1;
+            }
+        }
+
+        return n+1;
+
+    }
+
+
 
 }
