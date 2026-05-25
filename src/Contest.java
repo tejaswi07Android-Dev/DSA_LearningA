@@ -19,17 +19,23 @@ public class Contest {
 //
 //        System.out.println(generateSubsequences("abc"));
 
-        System.out.println(longestConsecutiveSequence(new int[]{100,4,200,1,3,2,5}));
+//        System.out.println(longestConsecutiveSequence(new int[]{100,4,200,1,3,2,5}));
 
-        System.out.println(Arrays.toString(productArray(new int[]{1, 2, 3, 4, 5})));
+//        System.out.println(Arrays.toString(productArray(new int[]{1, 2, 3, 4, 5})));
 
-        System.out.println(maxSumSubarray(new int[]{-2,1,-3,4,-1,2,1,-5,4}));
+//        System.out.println(maxSumSubarray(new int[]{-2,1,-3,4,-1,2,1,-5,4}));
 
-        System.out.println(groupAnagram(new String[]{"eat","tea","tan","ate","nat","bat"}));
+//        System.out.println(groupAnagram(new String[]{"eat","tea","tan","ate","nat","bat"}));
 
-        System.out.println(Arrays.toString(sortColors(new int[]{2, 0, 2, 1, 1, 0,0})));
+//        System.out.println(Arrays.toString(sortColors(new int[]{2, 0, 2, 1, 1, 0,0})));
 
-        System.out.println(longestSubStringWithoutRepeating("abcdabcefgb"));
+//        System.out.println(longestSubStringWithoutRepeating("abcdabcefgb"));
+
+//        System.out.println(kElements(new int[]{1, 1, 1, 2, 3, 3, 4, 4, 4, 4}, 2));
+
+//        System.out.println(largestNumber(new int[]{4,5,2,33,30,9}));
+
+        System.out.println(Arrays.toString(singleNumberIII(new int[]{5, 3, 2, 3, 2, 6})));
 
 
     }
@@ -42,23 +48,23 @@ public class Contest {
         int sum = 0;
         int maxLen = 0;
 
-        for(int i = 0; i < A.length; i++) {
+        for (int i = 0; i < A.length; i++) {
 
             sum += A[i];
 
             // If entire subarray from 0 to i gives K
-            if(sum == K) {
+            if (sum == K) {
                 maxLen = i + 1;
             }
 
             // Check if (sum - K) existed before
-            if(map.containsKey(sum - K)) {
+            if (map.containsKey(sum - K)) {
                 int len = i - map.get(sum - K);
                 maxLen = Math.max(maxLen, len);
             }
 
             // Store first occurrence only
-            if(!map.containsKey(sum)) {
+            if (!map.containsKey(sum)) {
                 map.put(sum, i);
             }
         }
@@ -68,24 +74,24 @@ public class Contest {
 
     // TC = O(N)
     // SC = O(N)
-    public static int[] distinctElement(int[] A, int B){
+    public static int[] distinctElement(int[] A, int B) {
         int n = A.length;
-        int[] ans = new int[n-B+1];
+        int[] ans = new int[n - B + 1];
         HashMap<Integer, Integer> map = new HashMap<>();
-        for(int i = 0; i < B; i++){
-            map.put(A[i], map.getOrDefault(A[i], 0)+1);
+        for (int i = 0; i < B; i++) {
+            map.put(A[i], map.getOrDefault(A[i], 0) + 1);
         }
         int idx = 0;
         ans[idx++] = map.size();
 
-        for(int i = B; i < n; i++){
+        for (int i = B; i < n; i++) {
             int next = A[i];
-            int prev = A[i-B];
+            int prev = A[i - B];
 
-            map.put(next, map.getOrDefault(next, 0)+1);
-            if(map.containsKey(prev)){
-                map.put(prev, map.get(prev)-1);
-                if(map.get(prev) == 0){
+            map.put(next, map.getOrDefault(next, 0) + 1);
+            if (map.containsKey(prev)) {
+                map.put(prev, map.get(prev) - 1);
+                if (map.get(prev) == 0) {
                     map.remove(prev);
                 }
             }
@@ -99,13 +105,13 @@ public class Contest {
 
     // TC = O(N);
     // SC = O(1);
-    public static int singleNumberII(int[] A){
+    public static int singleNumberII(int[] A) {
         int ones = 0;
         int twos = 0;
 
-        for(int a : A){
-            ones = (ones ^ a) & ~ twos;
-            twos = (twos ^ a) & ~ ones;
+        for (int a : A) {
+            ones = (ones ^ a) & ~twos;
+            twos = (twos ^ a) & ~ones;
         }
 
         return ones;
@@ -114,18 +120,18 @@ public class Contest {
     // TC = O(N)
     // SC = O(1) because only output is stored
 
-    public static ArrayList<ArrayList<Integer>> mergeOverLapping(ArrayList<ArrayList<Integer>> A){
+    public static ArrayList<ArrayList<Integer>> mergeOverLapping(ArrayList<ArrayList<Integer>> A) {
         ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
         int a1 = A.getFirst().get(0);
         int b1 = A.getFirst().get(1);
 
-        for(int i = 1; i < A.size(); i++){
+        for (int i = 1; i < A.size(); i++) {
             int a2 = A.get(i).get(0);
             int b2 = A.get(i).get(1);
 
-            if(b1 > a2){
+            if (b1 > a2) {
                 b1 = Math.max(b1, b2);
-            }else{
+            } else {
                 ArrayList<Integer> temp = new ArrayList<>();
                 temp.add(a1);
                 temp.add(b1);
@@ -154,11 +160,10 @@ public class Contest {
         return ans;
     }
 
-    public static void helper(int idx, String s, String curr,
-                              ArrayList<String> ans) {
+    public static void helper(int idx, String s, String curr, ArrayList<String> ans) {
 
         // Base case
-        if(idx == s.length()) {
+        if (idx == s.length()) {
             ans.add(curr);
             return;
         }
@@ -172,17 +177,17 @@ public class Contest {
 
     // TC = O(n)
     // SC = O(n)
-    public static int longestConsecutiveSequence(int[] A){
+    public static int longestConsecutiveSequence(int[] A) {
         int maxLen = 0;
         HashSet<Integer> set = new HashSet<>();
 
-        for(int a : A) set.add(a);
+        for (int a : A) set.add(a);
 
-        for(int a : A){
-            if(!set.contains(a-1)){
+        for (int a : A) {
+            if (!set.contains(a - 1)) {
                 int curr = a;
                 int len = 1;
-                while (set.contains(curr +1)){
+                while (set.contains(curr + 1)) {
                     len++;
                     curr++;
                 }
@@ -196,20 +201,20 @@ public class Contest {
 
     // TC = O(N)
     // SC = O(N)
-    public static int[] productArray(int[] A){
+    public static int[] productArray(int[] A) {
         int n = A.length;
 
         int[] preProd = new int[n];
 
         preProd[0] = 1;
-        for(int i = 1; i < n; i++){
-            preProd[i] = preProd[i-1] * A[i-1];
+        for (int i = 1; i < n; i++) {
+            preProd[i] = preProd[i - 1] * A[i - 1];
         }
 
         int right = 1;
 
 
-        for(int i = n-1; i >= 0; i--){
+        for (int i = n - 1; i >= 0; i--) {
             preProd[i] = preProd[i] * right;
 
             right *= A[i];
@@ -221,16 +226,16 @@ public class Contest {
 
     // TC = O(n)
     // SC = O(1)
-    public static int maxSumSubarray(int[] A){
+    public static int maxSumSubarray(int[] A) {
         int maxSum = Integer.MIN_VALUE;
         int sum = 0;
 
-        for(int a : A){
+        for (int a : A) {
             sum += a;
 
             maxSum = Math.max(maxSum, sum);
 
-            if(sum < 0) sum = 0;
+            if (sum < 0) sum = 0;
         }
 
 
@@ -240,17 +245,17 @@ public class Contest {
 
     //TC = O(N)
     //SC = O(N)
-    public static ArrayList<ArrayList<String>> groupAnagram(String[] A){
+    public static ArrayList<ArrayList<String>> groupAnagram(String[] A) {
         HashMap<String, ArrayList<String>> map = new HashMap<>();
 
-        for(String word : A){
+        for (String word : A) {
             char[] ch = word.toCharArray();
             Arrays.sort(ch);
             String str = String.valueOf(ch);
 
-            if(map.containsKey(str)){
+            if (map.containsKey(str)) {
                 map.get(str).add(word);
-            }else {
+            } else {
                 ArrayList<String> list = new ArrayList<>();
                 list.add(word);
 
@@ -263,16 +268,16 @@ public class Contest {
 
     //TC = O(N)
     //SC = O(1)
-    public static int[] sortColors(int[] A){
+    public static int[] sortColors(int[] A) {
         int[] freq = new int[3];
 
-        for(int a : A){
+        for (int a : A) {
             freq[a]++;
         }
         int id = 0;
-        for(int i = 0; i < 3; i ++){
+        for (int i = 0; i < 3; i++) {
             int f = freq[i];
-            for(int j = 0; j< f; j++){
+            for (int j = 0; j < f; j++) {
                 A[id++] = i;
             }
         }
@@ -282,15 +287,15 @@ public class Contest {
 
     // TC = O(N);
     // SC = O(N);
-    public static int longestSubStringWithoutRepeating(String A){
+    public static int longestSubStringWithoutRepeating(String A) {
         HashSet<Character> set = new HashSet<>();
 
         int left = 0;
         char[] ch = A.toCharArray();
         int ans = 0;
-        for(int i = 0; i < ch.length; i++){
+        for (int i = 0; i < ch.length; i++) {
 
-            while (set.contains(ch[i])){
+            while (set.contains(ch[i])) {
                 set.remove(ch[left++]);
             }
 
@@ -303,14 +308,101 @@ public class Contest {
 
     }
 
-    public static ArrayList<Integer> coust(int[] A, int K){
 
-        Arrays.sort(A);
+    public static ArrayList<Integer> kElements(int[] arr, int K) {
+
+        Integer[] A = new Integer[arr.length];
+
+        int id = 0;
+        for (int ar : arr) A[id++] = ar;
+
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        for (int a : A) map.put(a, map.getOrDefault(a, 0) + 1);
+
+        Arrays.sort(A, (a, b) -> {
+            int fa = map.get(a);
+            int fb = map.get(b);
+            if (fa == fb) {
+                return a - b;
+            }
+            return fb - fa;
+        });
+
         int n = A.length;
         int c = 0;
 
+        ArrayList<Integer> ans = new ArrayList<>();
+        ans.add(A[0]);
+        for (int i = 1; i < n; i++) {
+            if (!Objects.equals(A[i], A[i - 1])) {
+                ans.add(A[i]);
+                c++;
+            }
+            if (c == K - 1) {
+                break;
+            }
+        }
+
+        return ans;
+    }
+
+    public static String largestNumber(int[] A){
+        String[] s = new String[A.length];
+        for(int i = 0; i < A.length; i++){
+            s[i] = String.valueOf(A[i]);
+        }
+
+        Arrays.sort(s, (a, b) -> (b + a).compareTo(a + b));
+
+        if(s[0].equals("0")) return "0";
+
+        StringBuilder res = new StringBuilder();
+
+        for(String str : s){
+            res.append(str);
+        }
+
+        return res.toString();
+
+    }
 
 
+    public static int pairsWithSome(int[] A, int K){
+        int count = 0;
+
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        for (int i = 0; i < A.length; i++){
+            int cr = K - A[i];
+
+
+        }
+        return 0;
+    }
+
+
+    public static int[] singleNumberIII(int[] A){
+        int c = 0;
+        for(int a : A) c ^= a;
+
+        int x = 1;
+        while((c&x)!=1){
+            x <<= 1;
+        }
+
+        int n1 = 0;
+        int n2 = 0;
+
+        for(int a : A){
+            if((a&x) == 1){
+                n1 ^= a;
+            }else{
+                n2 ^= a;
+            }
+        }
+
+        return new int[]{n1, n2};
     }
 
 }
