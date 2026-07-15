@@ -24,6 +24,7 @@ public class Scaler {
 //        System.out.println(squareSum(5));
 //        System.out.println(fun(2,10));
 //        System.out.println(isPrime(3));
+        System.out.println(reverseStr("Hello", 0));
 
     }
 
@@ -620,5 +621,13 @@ public class Scaler {
 
 
 
+
+
+    public static String  reverseStr(String s, int a){
+        if(a == s.length()) return "";
+
+        return reverseStr(s, a+1)+s.charAt(a);
+
+    }
 
 }

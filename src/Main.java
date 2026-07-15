@@ -92,6 +92,33 @@ public class Main {
 //        System.out.println(spiralOrder(A));
 
 
+        RandomLinkedList head = new RandomLinkedList(1);
+        RandomLinkedList head2 = new RandomLinkedList(2);
+        RandomLinkedList head3 = new RandomLinkedList(3);
+        RandomLinkedList head4 = new RandomLinkedList(4);
+
+
+        head.next = head2;
+        head.rand = head3;
+        head2.next = head3;
+        head2.rand = head4;
+
+        head3.next = head4;
+        head4.rand = head2;
+
+
+        System.out.println(deepCopy(head));
+
+        System.out.println(head);
+        System.out.println(head);
+        System.out.println(head);
+
+
+
+    }
+
+    public static RandomLinkedList deepCopy(RandomLinkedList head){
+        return new RandomLinkedList(head.data);
     }
 
 
