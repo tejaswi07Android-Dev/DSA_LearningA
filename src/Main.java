@@ -21,7 +21,7 @@ public class Main {
 //        System.out.println(countSquares(new int[][]{{0, 1, 1, 1}, {1, 1, 1, 1}, {0, 1, 1, 1}}));
 //        getRow(10);
 //        System.out.println(reverseVowels("IceCreAm"));
-//        System.out.println(singleNumber(new int[]{4,1,2,1,2}));
+        System.out.println(singleNumber(new int[]{4,1,2,1,2}));
 //        System.out.println(countPaths(0, 0, 4,4));
 //        System.out.println(placeTiles(4, 2));
 //        System.out.println(callGuest(2));
@@ -32,15 +32,16 @@ public class Main {
 //        System.out.println(peopleAwareOfSecret(6,2,4));
 //        System.out.println(canBeTypedWords("leet code", "e"));
 
-//        LinkedList list = new LinkedList();
-//        list.insert(10);
-//        list.insert(12);
-//        list.insert(15);
-//        list.insert(18);
-//        list.insert(21);
-//        list.insert(24);
-//        list.insert(26);
-//        list.insert(31);
+        LinkedList list = new LinkedList();
+        list.insert(10);
+        list.insert(12);
+        list.insert(15);
+        list.insert(18);
+        list.insert(21);
+        list.insert(24);
+        list.insert(26);
+        list.insert(31);
+
 
 //        System.out.println(findFinalValue(new int[]{8,19,4,2,15,3}, 2));
 //        System.out.println(prefixesDivBy5(new int[]{0,1,1,1,1,1}));
@@ -88,10 +89,11 @@ public class Main {
         A.add(temp2);
         A.add(temp3);
 
-        System.out.println(spiralOrder(A));
+//        System.out.println(spiralOrder(A));
 
 
     }
+
 
     public static Double sum(Double a, Double b) {
         return a + b;

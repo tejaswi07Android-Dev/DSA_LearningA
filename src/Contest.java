@@ -19,18 +19,43 @@ public class Contest {
 //
 //        System.out.println(generateSubsequences("abc"));
 
-        System.out.println(longestConsecutiveSequence(new int[]{100,4,200,1,3,2,5}));
+//        System.out.println(longestConsecutiveSequence(new int[]{100,4,200,1,3,2,5}));
 
-        System.out.println(Arrays.toString(productArray(new int[]{1, 2, 3, 4, 5})));
+//        System.out.println(Arrays.toString(productArray(new int[]{1, 2, 3, 4, 5})));
 
-        System.out.println(maxSumSubarray(new int[]{-2,1,-3,4,-1,2,1,-5,4}));
+//        System.out.println(maxSumSubarray(new int[]{-2,1,-3,4,-1,2,1,-5,4}));
 
-        System.out.println(groupAnagram(new String[]{"eat","tea","tan","ate","nat","bat"}));
+//        System.out.println(groupAnagram(new String[]{"eat","tea","tan","ate","nat","bat"}));
 
-        System.out.println(Arrays.toString(sortColors(new int[]{2, 0, 2, 1, 1, 0,0})));
+//        System.out.println(Arrays.toString(sortColors(new int[]{2, 0, 2, 1, 1, 0,0})));
 
-        System.out.println(longestSubStringWithoutRepeating("abcdabcefgb"));
+//        System.out.println(longestSubStringWithoutRepeating("abcdabcefgb"));
 
+//        System.out.println(countPair(new int[]{1,5,7,-1,5, 4,5, 2, 4,6,0},6));
+
+//        System.out.println(longestSubarrayWithZeroSum(new int[]{1,-1,3,2,-2,-3}));
+
+//        System.out.println(leadersInArray(new int[]{16,17,4,3,5,2}));
+
+//        System.out.println(Arrays.toString(singleNumberIII(new int[]{1, 2, 3, 1, 2, 5})));
+
+//        System.out.println(maxConsecutiveOnes(new int[]{1,1,1,1,0,1,1,1,0}));
+
+//        System.out.println(equilibriumIndex(new int[]{1,3,5,2,2}));
+
+        int[][] A = {
+                {1, 3},
+                {2, 6},
+                {8, 10},
+                {15, 18}
+        };
+
+//        System.out.println(mergeIntervals(A));
+
+//        System.out.println(mooreVoting(new int[] {2,2,1,1,1,2,2,1,1,1}));
+
+
+        System.out.println(isValid("(){[{]}}"));
 
     }
 
@@ -303,13 +328,199 @@ public class Contest {
 
     }
 
-    public static ArrayList<Integer> coust(int[] A, int K){
+    //TC = O(N)
+    //SC = O(N)
+    public static int countPair(int[] A, int K){
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int count = 0;
+        for(int i = 0; i < A.length; i++){
+            int c = K-A[i];
+            if(map.containsKey(c)){
+                count++;
+            }
+            map.put(A[i], i);
+        }
 
-        Arrays.sort(A);
+        return count;
+    }
+
+    // TC = O(N)
+    // SC = O(N)
+    public static int longestSubarrayWithZeroSum(int[] A){
+        int maxLength = 0;
         int n = A.length;
-        int c = 0;
+        int sum = 0;
+
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        map.put(0, -1);
+
+        for(int i = 0; i < n; i++){
+            sum += A[i];
+
+            if(sum == 0){
+                maxLength = i+1;
+            }
+            if(map.containsKey(sum)){
+                int len = i - map.get(sum);
+                maxLength = Math.max(len, maxLength);
+            }
+
+            if(!map.containsKey(sum)) {
+                map.put(sum, i);
+            }
+
+        }
+        return maxLength;
+    }
+
+    // TC = O(N)
+    // SC = O(1)
+    public static ArrayList<Integer> leadersInArray(int[] A){
+        ArrayList<Integer> ans = new ArrayList<>();
+
+        int rightMax = Integer.MIN_VALUE;
+        int n = A.length;
+        for(int i = n-1 ; i >= 0; i--){
+            if(A[i] > rightMax){
+                ans.add(A[i]);
+            }
+
+            rightMax = Math.max(rightMax, A[i]);
+        }
+
+        Collections.reverse(ans);
+
+        return ans;
+    }
+
+    // TC = O(N)
+    // SC = O(1)
+    public static int[] singleNumberIII(int[] A){
+        int xor = 0;
+
+        for(int a: A) xor ^= a;
+
+        int c = 1;
+
+        while ((xor & c) == 0){
+            c <<=1;
+        }
+        int u = 0, v = 0;
+        for(int a: A){
+            if((a&c) == 0){
+                u ^= a;
+            }else{
+                v ^= a;
+            }
+        }
+
+        return new int[]{u,v};
+    }
 
 
+
+
+    // TC = O(n)
+    // SC = O(1)
+    public static int maxConsecutiveOnes(int[] A){
+        int maxCount = 0;
+        int count = 0;
+        for(int i = 0; i < A.length; i++){
+            if(A[i] == 1){
+                count++;
+            }else{
+                maxCount = Math.max(maxCount, count);
+                count = 0;
+            }
+        }
+
+        maxCount = Math.max(maxCount, count);
+
+        return maxCount;
+    }
+
+
+
+    public static int equilibriumIndex(int[] A){
+        int n = A.length;
+        int[] leftSum = new int[n];
+
+        leftSum[0] = 0;
+
+        for (int i = 1; i < n; i++){
+            leftSum[i] = leftSum[i-1] + A[i-1];
+        }
+
+        int rightSum = 0;
+
+        for(int i = n -1; i >= 0; i--){
+            if(rightSum == leftSum[i]){
+                return i;
+            }
+
+            rightSum += A[i];
+        }
+
+        return -1;
+
+    }
+
+    public static ArrayList<ArrayList<Integer>> mergeIntervals(int[][] A){
+        ArrayList<ArrayList<Integer>>  ans = new ArrayList<>();
+
+        Arrays.sort(A, (a,b) -> Integer.compare(a[0] , b[0]));
+
+        int a1 = A[0][0];
+        int b1 = A[0][1];
+
+        for(int i = 1; i < A.length; i++){
+            int a2 = A[i][0];
+            int b2 = A[i][1];
+
+            if(a2 <= b1){
+                b1 = Math.max(b1, b2);
+            }else{
+                ArrayList<Integer> temp = new ArrayList<>();
+                temp.add(a1);
+                temp.add(b1);
+                ans.add(temp);
+                a1 = a2;
+                b1 =b2;
+            }
+
+        }
+
+        ArrayList<Integer> temp = new ArrayList<>();
+        temp.add(a1);
+        temp.add(b1);
+        ans.add(temp);
+
+        return ans;
+
+    }
+
+    public static int mooreVoting(int[] A){
+        int n = A.length;
+        Arrays.sort(A);
+        return A[(n+1)/2];
+    }
+
+
+    public static boolean isValid(String s) {
+        Stack<Character> brc = new Stack<>();
+
+        for(char c : s.toCharArray()){
+            if(c == '(' || c == '{' || c == '['){
+                brc.push(c);
+            }else{
+                if((c == ')' && brc.peek() == '(') || (c == '}' && brc.peek() == '{') || (c == ']' && brc.peek() == '[')){
+                    brc.pop();
+                }
+            }
+        }
+
+        return brc.isEmpty();
 
     }
 

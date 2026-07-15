@@ -35,8 +35,8 @@ public class LinkedList {
     }
 
     // Display method to print the linked list
-    public void display() {
-        Node current = head;
+    public void display(Node current) {
+//        Node current = head;
 
         if (current == null) {
             System.out.println("The list is empty.");

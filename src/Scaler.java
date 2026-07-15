@@ -594,6 +594,7 @@ public class Scaler {
         }
         return true;
     }
+
     public int firstMissingPositive(ArrayList<Integer> A) {
         int n = A.size();
 
@@ -616,6 +617,7 @@ public class Scaler {
         return n+1;
 
     }
+
 
 
 
