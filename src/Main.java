@@ -105,12 +105,28 @@ public class Main {
         head3.next = head4;
         head4.rand = head2;
 
+//
+//        System.out.println(deepCopy(head));
+//
+//        System.out.println(head);
+//        System.out.println(head);
+//        System.out.println(head);
 
-        System.out.println(deepCopy(head));
+        LinkedList.Node n = new LinkedList.Node(5);
+        LinkedList.Node n1 = new LinkedList.Node(3);
+        LinkedList.Node n2 = new LinkedList.Node(2);
 
-        System.out.println(head);
-        System.out.println(head);
-        System.out.println(head);
+        n.next = n1;
+        n1.next = n2;
+
+        int num = listToInt(n);
+
+        System.out.println(num);
+
+        LinkedList.Node nes = intToList(num);
+
+
+        printNode(nes);
 
 
 
@@ -1185,6 +1201,43 @@ public class Main {
 
         return ans;
 
+    }
+
+
+
+    public static int listToInt(LinkedList.Node head){
+        LinkedList.Node temp = head;
+        int ans = temp.data;
+        temp = temp.next;
+         while (temp != null){
+             ans = ans*10 + temp.data;
+             temp = temp.next;
+         }
+         return ans;
+    }
+
+    public static LinkedList.Node intToList(int A) {
+        LinkedList.Node head = new LinkedList.Node(A % 10);
+        LinkedList.Node tail = head;
+
+        A /= 10;
+
+        while (A > 0) {
+            tail.next = new LinkedList.Node(A % 10);
+            tail = tail.next;
+            A /= 10;
+        }
+
+        return head;
+    }
+
+    public static void printNode(LinkedList.Node head){
+        LinkedList.Node temp = head;
+
+        while (temp != null){
+            System.out.print(temp.data+ " -> ");
+            temp = temp.next;
+        }
     }
 }
 

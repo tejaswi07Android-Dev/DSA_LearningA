@@ -9,6 +9,7 @@ class BinaryTree {
         Node right;
         Node left;
     }
+
     public static void main(String[] args) {
 
         Node tree = addNewNode(1);
@@ -16,6 +17,15 @@ class BinaryTree {
         tree.left.left = addNewNode(4);
         tree.left.right = addNewNode(5);
         tree.right = addNewNode(3);
+
+
+        Node tree2 = addNewNode(1);
+        tree2.left = addNewNode(2);
+        tree2.left.left = addNewNode(4);
+        tree2.left.right = addNewNode(5);
+        tree2.right = addNewNode(3);
+
+
 
 /*
                1
@@ -30,21 +40,28 @@ class BinaryTree {
 
 */
 
-        System.out.print("InOrder: ");
-        printInorder(tree);
-        System.out.println();
-        System.out.print("PreOrder: ");
-        printPreorder(tree);
-        System.out.println();
-        System.out.print("PostOrder: ");
-        printPostorder(tree);
-        System.out.println();
-        System.out.print("LevelOrder: ");
-        levelOrderPrint(tree);
-        System.out.println();
-        zigZagOrderPrint(tree);
-        System.out.println();
-        simpleLevelOrderPrint(tree);
+//        System.out.print("InOrder: ");
+//        printInorder(tree);
+//        System.out.println();
+//        System.out.print("PreOrder: ");
+//        printPreorder(tree);
+//        System.out.println();
+//        System.out.print("PostOrder: ");
+//        printPostorder(tree);
+//        System.out.println();
+//        System.out.print("LevelOrder: ");
+//        levelOrderPrint(tree);
+//        System.out.println();
+//        zigZagOrderPrint(tree);
+//        System.out.println();
+//        simpleLevelOrderPrint(tree);
+
+//        System.out.println(isBalanced(tree));
+
+        System.out.println(isSameTreee(tree, tree2));
+
+
+
     }
 
     public static void printInorder(Node n) {
@@ -112,8 +129,6 @@ class BinaryTree {
 
     }
 
-
-
     public static void zigZagOrderPrint(Node root) {
         List<List<Integer>> ans = new ArrayList<>();
         Queue<Node> q = new LinkedList<>();
@@ -154,7 +169,6 @@ class BinaryTree {
 
     }
 
-
     public static void simpleLevelOrderPrint(Node root){
         Queue<Node> q = new LinkedList<>();
         ArrayList<Integer> ans = new ArrayList<>();
@@ -179,8 +193,6 @@ class BinaryTree {
 
     }
 
-
-
     public static Node addNewNode(int D) {
         Node temp = new Node();
         temp.data = D;
@@ -190,6 +202,63 @@ class BinaryTree {
         return temp;
     }
 
+    public static boolean isBalanced(Node root){
+        return height(root) != -1;
+    }
 
+    public static int height(Node node){
+        if(node == null) return 0;
+
+        int leftHeight = height(node.left);
+        if (leftHeight == -1) return -1;
+
+        int rightHeight = height(node.right);
+        if(rightHeight == -1) return -1;
+
+        if(Math.abs(leftHeight - rightHeight) > 1) return -1;
+
+        return Math.max(leftHeight, rightHeight) +1;
+    }
+
+    public static boolean isSameTreee(Node A, Node B){
+        if(A == null && B == null) return true;
+
+        if(A == null || B == null) return false;
+
+        if(A.data != B.data) return false;
+
+        return isSameTreee(A.left, B.left) && isSameTreee(A.right, B.right);
+    }
+
+
+    public static boolean isSameTree(Node A, Node B){
+        ArrayList<Integer> first = new ArrayList<>();
+        ArrayList<Integer> second = new ArrayList<>();
+
+        inOrderWithNull(A, first);
+        inOrderWithNull(B, second);
+        if(first.size() != second.size()) return false;
+
+        for(int i = 0; i < first.size(); i++){
+            if(!first.get(i).equals(second.get(i))){
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
+    public static void inOrderWithNull(Node n, ArrayList<Integer> arr) {
+        if (n == null) {
+            arr.add(-1);
+            return;
+        }
+
+        inOrderWithNull(n.left, arr);
+        arr.add(n.data);
+        inOrderWithNull(n.right, arr);
+
+    }
 }
 
