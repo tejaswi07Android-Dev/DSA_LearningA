@@ -2,7 +2,7 @@
 public class LinkedList {
 
     // Node class representing each element in the list
-    class Node {
+    static class Node {
         int data;
         Node next;
 
@@ -11,6 +11,24 @@ public class LinkedList {
             this.data = data;
             this.next = null;
         }
+    }
+
+    public static void main(String[] args) {
+        Node head = new Node(1);
+        Node t1 = new Node(2);
+        Node t2 = new Node(3);
+        Node t3 = new Node(4);
+        Node t4 = new Node(5);
+        Node t5 = new Node(6);
+
+        head.next = t1;
+        t1.next = t2;
+        t2.next = t3;
+        t3.next = t4;
+        t4.next = t5;
+
+        System.out.println(middleItem(head));
+
     }
 
     // Head of the linked list
@@ -142,6 +160,22 @@ public class LinkedList {
         // Step 4: Update head in case we reversed from the first node
         head = dummy.next;
     }
+
+
+    public static int middleItem(Node head){
+        if(head == null) return -1;
+        Node slow = head;
+        Node fast = head;
+
+        while (fast.next != null && fast.next.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        return slow.data;
+    }
+
+
 
 
 
