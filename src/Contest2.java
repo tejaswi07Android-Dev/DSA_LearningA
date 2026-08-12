@@ -15,13 +15,14 @@ public class Contest2 {
 //        System.out.println(duplicate(new int[]{1,3,4,2,2}));
 //        printNto1(5);
 //        System.out.println();
-        System.out.println(addDigits(45));
-        System.out.println(addDigits(12345));
+//        System.out.println(addDigits(45));
+//        System.out.println(addDigits(12345));
 //        System.out.println(NthFibonacciNumber(5));
 //        System.out.println(generateSubsequences("abc"));
-        String str = "racecar";
-        System.out.println(isPalindrome(str,0, str.length()-1));
+//        String str = "racecar";
+//        System.out.println(isPalindrome(str,0, str.length()-1));
 
+        System.out.println(singleNumber(new int[]{1, 2, 3, 1, 2, 3, 1, 4, 2, 3}));
     }
 
 
@@ -123,10 +124,7 @@ public class Contest2 {
     }
 
 
-
-
-
-    public static int duplicate(int[] A){
+    public static int duplicate(int[] A) {
         int slow = A[0];
         int fast = A[0];
 
@@ -135,11 +133,11 @@ public class Contest2 {
         do {
             slow = A[slow];
             fast = A[A[slow]];
-        }while (slow != fast);
+        } while (slow != fast);
 
         slow = A[0];
 
-        while (slow != fast){
+        while (slow != fast) {
             slow = A[slow];
             fast = A[fast];
         }
@@ -148,26 +146,26 @@ public class Contest2 {
     }
 
 
-    public static void printNto1(int n){
-        if(n==0) return;
+    public static void printNto1(int n) {
+        if (n == 0) return;
 
-        System.out.print(n+" ");
-        printNto1(n-1);
+        System.out.print(n + " ");
+        printNto1(n - 1);
     }
 
     static int sum = 0;
 
-    public static int addDigits(int n){
-        if(n < 1) return 0;
-        addDigits(n/10);
-        return (n%10) + addDigits(n/10);
+    public static int addDigits(int n) {
+        if (n < 1) return 0;
+        addDigits(n / 10);
+        return (n % 10) + addDigits(n / 10);
     }
 
 
-    public static int NthFibonacciNumber(int n){
-        if(n==0|| n==1) return n;
+    public static int NthFibonacciNumber(int n) {
+        if (n == 0 || n == 1) return n;
 
-        return NthFibonacciNumber(n-1)+ NthFibonacciNumber(n-2);
+        return NthFibonacciNumber(n - 1) + NthFibonacciNumber(n - 2);
     }
 
 
@@ -200,6 +198,55 @@ public class Contest2 {
             return false;
         }
 
-        return isPalindrome(S, l+1, r-1);
+        return isPalindrome(S, l + 1, r - 1);
+    }
+
+
+    public void towerHanoi(int n, char A, char B, char C) {
+        if (n == 1) {
+            return;
+        }
+
+        towerHanoi(n - 1, A, C, B);
+
+        System.out.println("Disk " + n + " moved from " + A + " to " + C);
+
+        towerHanoi(n - 1, B, A, C);
+    }
+
+    public static int singleNumber(int[] nums) {
+        int ones = 0, twos = 0;
+
+        for (int num : nums) {
+            ones = (ones ^ num) & ~twos;
+            twos = (twos ^ num) & ~ones;
+        }
+
+        return ones;
+    }
+
+    public int[] singleNum(int[] A) {
+        int res = 0;
+        for (int a : A) res ^= a;
+
+        int c = res & -res;
+
+        int a1 = 0;
+        int b2 = 0;
+
+        for (int a : A) {
+            if ((a & c) != 0) {
+                a1 ^= a;
+            } else {
+                b2 ^= a;
+            }
+        }
+
+        if (a1 < b2) {
+            return new int[]{a1, b2};
+        }
+
+        return new int[]{b2, a1};
+
     }
 }

@@ -71,7 +71,7 @@ public class AdvanceGraph {
         ArrayList<Edge>[] graph = new ArrayList[V];
 
         createGraph(graph);
-        boolean[] visited = new boolean[graph.length];
+        boolean[] visited = new boolean[V];
         System.out.print("BFS: ");
         for (int i = 0; i < visited.length; i++) {
             if (!visited[i]) {
