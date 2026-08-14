@@ -5,77 +5,18 @@ import java.util.*;
 public class LevelUp {
     public static void main(String[] args) {
 
-        // Test 1
-        // 1 -> 2 -> 3 -> 4
-        //           ^    |
-        //           |____|
-        ListNode head1 = new ListNode(1);
-        ListNode n2 = new ListNode(2);
-        ListNode n3 = new ListNode(3);
-        ListNode n4 = new ListNode(4);
 
-        head1.next = n2;
-        n2.next = n3;
-        n3.next = n4;
-        n4.next = n3;
+        Node root = new Node(1);
 
-        ListNode result1 = detectCycle(head1);
+        root.left = new Node(2);
+        root.right = new Node(3);
 
-        System.out.println(result1 == null ? "null" : result1.val);
-        // Expected: 3
+        root.left.left = new Node(4);
+        root.left.right = new Node(5);
+        root.right.right = new Node(6);
 
-
-        // Test 2
-        // 1 -> 2 -> 3 -> null
-        ListNode head2 = new ListNode(1);
-        ListNode n5 = new ListNode(2);
-        ListNode n6 = new ListNode(3);
-
-        head2.next = n5;
-        n5.next = n6;
-
-        ListNode result2 = detectCycle(head2);
-
-        System.out.println(result2 == null ? "null" : result2.val);
-        // Expected: null
-
-
-        // Test 3
-        // 1 -> 2 -> 3 -> 4
-        //      ^         |
-        //      |_________|
-        ListNode head3 = new ListNode(1);
-        ListNode n7 = new ListNode(2);
-        ListNode n8 = new ListNode(3);
-        ListNode n9 = new ListNode(4);
-
-        head3.next = n7;
-        n7.next = n8;
-        n8.next = n9;
-        n9.next = n7;
-
-        ListNode result3 = detectCycle(head3);
-
-        System.out.println(result3 == null ? "null" : result3.val);
-        // Expected: 2
-
-
-        // Test 4
-        // 1 -> itself
-        ListNode head4 = new ListNode(1);
-        head4.next = head4;
-
-        ListNode result4 = detectCycle(head4);
-
-        System.out.println(result4 == null ? "null" : result4.val);
-        // Expected: 1
-
-
-        // Test 5
-        // Empty list
-        ListNode result5 = detectCycle(null);
-
-        System.out.println(result5 == null ? "null" : result5.val);
+        System.out.println(maxSumLevel(root));
+// Expected: 2
 
 
     }
@@ -99,6 +40,26 @@ public class LevelUp {
         }
 
         return count;
+    }
+
+    public static int shortestSubarray(int[] A, int K) {
+        int count = Integer.MAX_VALUE;
+        int prefixSum = 0;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        map.put(0, -1);
+        for (int i = 0; i < A.length ; i++) {
+            prefixSum += A[i];
+
+            int comp = prefixSum - K;
+
+            if (map.containsKey(comp)) {
+                count = Math.min(count, i - map.get(comp));
+            }
+
+            map.put(prefixSum, i);
+        }
+
+        return count == Integer.MAX_VALUE ? -1 : count;
     }
 
     public static int searchTarget(int[] A, int T) {
@@ -299,6 +260,238 @@ public class LevelUp {
         }
         return slow;
 
+
+    }
+
+    public static int kthLargest(int[] A, int K) {
+        if(A == null || A.length == 0 || K > A.length) return -1;
+
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+
+        for(int a : A){
+            pq.offer(a);
+            if(pq.size()>K){
+                pq.poll();
+            }
+        }
+
+        return pq.peek();
+    }
+
+    public static int longestConsecutive(int[] A) {
+        if(A.length == 0) return 0;
+        HashSet<Integer> set = new HashSet<>();
+
+        for(int a : A) set.add(a);
+        int max = 0;
+        for (int a : A){
+            if(!set.contains(a-1)){
+                int check = a;
+                int len = 0;
+                while (set.contains(check++)){
+                    len++;
+                }
+                max = Math.max(max, len);
+            }
+        }
+
+        return max;
+    }
+
+    public static int longestSubarrayAtMostKDistinct(int[] A, int K) {
+        if(K == 0) return 0;
+
+        HashMap<Integer, Integer> freq = new HashMap<>();
+        int l = 0;
+        int maxLen = 0;
+        for(int r = 0; r < A.length; r++){
+            freq.put(A[r], freq.getOrDefault(A[r], 0)+1);
+
+            while(freq.size() > K){
+                freq.put(A[l], freq.get(A[l]) - 1);
+
+                if (freq.get(A[l]) == 0) {
+                    freq.remove(A[l]);
+                }
+
+                l++;
+            }
+            if(freq.size() ==K) maxLen = Math.max(maxLen, r -l +1);
+        }
+
+        return maxLen;
+    }
+
+    public static int largestRectangle(int[] A) {
+        int n = A.length;
+
+
+        Stack<Integer> stack = new Stack<>();
+        int maxArea = 0;
+        for(int i = 0; i <= n; i++){
+            int currHeight = (i == A.length) ? 0 : A[i];
+
+            while(!stack.isEmpty() && A[stack.peek()] >= currHeight){
+                int index = stack.pop();
+
+                int height = A[index];
+
+                int width;
+
+                if (stack.isEmpty()) {
+                    width = i;
+                } else {
+                    width = i - stack.peek() - 1;
+                }
+
+                maxArea = Math.max(maxArea, height * width);
+            }
+            stack.add(i);
+        }
+
+
+        return maxArea;
+    }
+
+    public static int firstOccurrence(int[] A, int T) {
+        int left = 0;
+        int right = A.length -1;
+
+        int ans  = -1;
+
+        while(left <= right){
+            int mid = left + (right - left)/2;
+
+            if(A[mid] == T) ans = mid;
+
+            if(T < A[mid]){
+                right = mid-1;
+            }else{
+                left = mid+1;
+            }
+        }
+
+        return ans;
+    }
+
+    public static int singleNumber(int[] A) {
+        int ans = 0;
+        for(int a : A) ans ^= a;
+
+        return ans;
+    }
+
+    public static long maxSubarraySum(int[] A) {
+        if(A.length == 0) return 0;
+        long ans = A[0];
+        long sum = A[0];
+
+        for(int i = 1; i < A.length; i++){
+            sum += A[i];
+            ans = Math.max(sum, ans);
+            sum = Math.max(0 , sum);
+        }
+        return ans;
+    }
+
+    public static boolean hasPairWithSum(int[] A, int K) {
+        HashSet<Integer>  set = new HashSet<>();
+
+        for(int a : A){
+            int comp = K -a;
+            if(set.contains(comp)){
+                return true;
+            }
+            set.add(a);
+        }
+        return false;
+    }
+
+    public static int[] twoSum(int[] A, int K) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for(int i = 0; i < A.length; i++){
+            int comp =  K - A[i];
+            if(map.containsKey(comp)){
+                return new int[]{map.get(comp), i};
+            }
+            map.put(A[i], i);
+        }
+
+        return new int[]{-1, -1};
+    }
+
+    public static boolean isBalanced(Node root) {
+        if(helper(root) == -1){
+            return false;
+        }
+
+        return true;
+    }
+
+    public static int helper(Node root){
+        if(root == null) return 0;
+
+        int left = helper(root.left);
+        if(left == -1) return -1;
+        int right = helper(root.right);
+        if(right == -1) return -1;
+
+        if(Math.abs(right - left) > 1) return -1;
+        return Math.max(right ,left) + 1;
+    }
+
+    public static List<Integer> rightSideView(Node root) {
+        if(root == null) return  new ArrayList<>();
+        Queue<Node> q = new LinkedList<>();
+
+        q.add(root);
+        List<Integer> ans = new ArrayList<>();
+
+        while (!q.isEmpty()){
+            int size = q.size();
+            for(int i = 1; i <= size; i++){
+                Node temp = q.poll();
+
+                if(i == size) ans.add(temp.val);
+
+                if(temp.left != null) q.add(temp.left);
+                if(temp.right != null) q.add(temp.right);
+            }
+        }
+
+        return ans;
+    }
+
+    public static int maxSumLevel(Node root) {
+        if(root == null) return -1;
+        int currLevel = 0;
+        int ans = 0;
+        long maxSum = Long.MIN_VALUE;
+
+        Queue<Node> q = new ArrayDeque<>();
+        q.offer(root);
+
+        while (!q.isEmpty()){
+            int size = q.size();
+
+            long sum = 0;
+            for(int i =0 ; i < size; i++){
+                Node temp = q.poll();
+                sum += temp.val;
+
+                if(temp.left != null) q.add(temp.left);
+                if(temp.right != null) q.add(temp.right);
+            }
+
+            if(sum > maxSum){
+                maxSum = sum;
+                ans = currLevel;
+            }
+
+            currLevel++;
+        }
+
+        return ans;
 
     }
 }
