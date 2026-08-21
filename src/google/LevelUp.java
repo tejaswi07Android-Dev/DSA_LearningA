@@ -1,52 +1,14 @@
 package google;
 
+
 import java.util.*;
 
 public class LevelUp {
     public static void main(String[] args) {
 
-        System.out.println(lis(new int[]{10, 9, 2, 5, 3, 7, 101, 18})); // 4
-// Example LIS: 2, 3, 7, 101
-
-        System.out.println(lis(new int[]{0, 1, 0, 3, 2, 3})); // 4
-// Example LIS: 0, 1, 2, 3
-
-        System.out.println(lis(new int[]{7, 7, 7, 7, 7})); // 1
-// Strictly increasing, so equal values don't count
-
-        System.out.println(lis(new int[]{1, 2, 3, 4, 5})); // 5
-
-        System.out.println(lis(new int[]{5, 4, 3, 2, 1})); // 1
-
-        System.out.println(lis(new int[]{1})); // 1
-
-        System.out.println(lis(new int[]{1, 3, 2, 4, 3, 5})); // 4
-// Example LIS: 1, 2, 4, 5
-// Another: 1, 3, 4, 5
-
-        System.out.println(lis(new int[]{3, 10, 2, 1, 20})); // 3
-// Example LIS: 3, 10, 20
-
-        System.out.println(lis(new int[]{50, 3, 10, 7, 40, 80})); // 4
-// Example LIS: 3, 7, 40, 80
-
-        System.out.println(lis(new int[]{2, 2, 2, 3, 4})); // 3
-// Example LIS: 2, 3, 4
-
-        System.out.println(lis(new int[]{-5, -1, -3, 0, 2, -2, 4})); // 5
-// Example LIS: -5, -3, 0, 2, 4
-
-        System.out.println(lis(new int[]{4, 10, 4, 3, 8, 9})); // 3
-// Example LIS: 4, 8, 9
-
-        System.out.println(lis(new int[]{1, 5, 2, 3, 4, 6})); // 5
-// Example LIS: 1, 2, 3, 4, 6
-
-        System.out.println(lis(new int[]{10, 20, 10, 30, 20, 50})); // 4
-// Example LIS: 10, 20, 30, 50
-
-        System.out.println(lis(new int[]{})); // 0
-// Empty array
+//        System.out.println(Arrays.toString(nextGreaterElement(new int[]{4, 5, 2, 10, 8})));
+//        System.out.println(Arrays.toString(dailyTemperatures(new int[]{73, 74, 75, 71, 69, 72, 76, 73})));
+        System.out.println(Arrays.toString(stockSpan(new int[]{100, 80, 60, 70, 60, 75, 85})));
 
     }
 
@@ -227,24 +189,7 @@ public class LevelUp {
         return map.isEmpty();
     }
 
-    public static int[] nextGreaterElement(int[] A) {
-        int n = A.length;
-        int[] result = new int[n];
-        Stack<Integer> stack = new Stack<>();
 
-        for (int i = n - 1; i >= 0; i--) {
-
-            while (!stack.isEmpty() && stack.peek() <= A[i]) {
-                stack.pop();
-            }
-
-            result[i] = stack.isEmpty() ? -1 : stack.peek();
-
-            stack.push(A[i]);
-        }
-
-        return result;
-    }
 
     public static boolean hasCycle(ListNode head) {
         if (head == null) return false;
@@ -697,12 +642,12 @@ public class LevelUp {
     }
 
     public static boolean subsetSum(int[] A, int B) {
-        boolean[] dp = new boolean[B+1];
+        boolean[] dp = new boolean[B + 1];
         dp[0] = true;
 
-        for(int i = 1; i <= A.length; i++){
-            for(int j = B; j >= A[i-1]; j--){
-                dp[j] = dp[j] || dp[j - A[i-1]];
+        for (int i = 1; i <= A.length; i++) {
+            for (int j = B; j >= A[i - 1]; j--) {
+                dp[j] = dp[j] || dp[j - A[i - 1]];
             }
         }
 
@@ -712,16 +657,16 @@ public class LevelUp {
 
     public static boolean canPartition(int[] A) {
         int totalSum = 0;
-        for(int a : A) totalSum += a;
+        for (int a : A) totalSum += a;
 
-        if(totalSum %2 == 1) return false;
-        int point = totalSum/2;
-        boolean[] dp = new boolean[point+1];
+        if (totalSum % 2 == 1) return false;
+        int point = totalSum / 2;
+        boolean[] dp = new boolean[point + 1];
         dp[0] = true;
 
-        for(int i = 1; i <= A.length; i++){
-            for (int j = point; j>= A[i-1]; j--){
-                dp[j] = dp[j] || dp[j-A[i-1]];
+        for (int i = 1; i <= A.length; i++) {
+            for (int j = point; j >= A[i - 1]; j--) {
+                dp[j] = dp[j] || dp[j - A[i - 1]];
             }
         }
 
@@ -733,22 +678,22 @@ public class LevelUp {
         return helperSum(map, A, target, 0);
     }
 
-    public static int helperSum(HashMap<String, Integer> map, int[] A, int T, int i){
-        if(i == A.length){
-            if(T == 0){
+    public static int helperSum(HashMap<String, Integer> map, int[] A, int T, int i) {
+        if (i == A.length) {
+            if (T == 0) {
                 return 1;
-            }else {
+            } else {
                 return 0;
             }
         }
 
-        String key = i +","+ T;
+        String key = i + "," + T;
 
-        if(map.containsKey(key)){
+        if (map.containsKey(key)) {
             return map.get(key);
-        }else{
-            int n = helperSum(map, A, T - A[i], i+1) + helperSum(map, A, T + A[i], i+1);
-            map.put(key , n);
+        } else {
+            int n = helperSum(map, A, T - A[i], i + 1) + helperSum(map, A, T + A[i], i + 1);
+            map.put(key, n);
 
         }
 
@@ -758,10 +703,10 @@ public class LevelUp {
 
     public static int lis(int[] A) {
         int ans = 0;
-        int[] dp = new int[A.length +1];
+        int[] dp = new int[A.length + 1];
 
 
-        for(int i = 0; i < A.length; i++){
+        for (int i = 0; i < A.length; i++) {
             ans = Math.max(ans, helperLis(dp, A, i));
         }
         return ans;
@@ -770,17 +715,185 @@ public class LevelUp {
     private static int helperLis(int[] dp, int[] A, int i) {
         int ans = 1;
 
-        if(dp[i] != 0){
+        if (dp[i] != 0) {
             return dp[i];
         }
-        for(int k = 0; k < i; k++){
-            if(A[k] < A[i]){
-                ans = Math.max(ans, helperLis(dp, A, k) +1);
+        for (int k = 0; k < i; k++) {
+            if (A[k] < A[i]) {
+                ans = Math.max(ans, helperLis(dp, A, k) + 1);
 
             }
         }
         dp[i] = ans;
         return ans;
+    }
+
+    public static int coinChange(int[] coins, int amount) {
+        int inf = amount + 1;
+        int[] dp = new int[inf];
+
+        Arrays.fill(dp, inf);
+        dp[0] = 0;
+        for (int i = 1; i <= amount; i++) {
+            for (int coin : coins) {
+                if (coin <= i)
+                    dp[i] = Math.min(dp[i], 1 + dp[i - coin]);
+            }
+        }
+        if (dp[amount] == inf) return -1;
+        return dp[amount];
+    }
+
+    static List<String> valid = new ArrayList<>();
+
+    public static List<String> generateParenthesis(int n) {
+        valid.clear();
+        generate(new StringBuilder(""), n, n);
+        return valid;
+    }
+
+    public static void generate(StringBuilder s, int open, int close) {
+        if (open == 0 && close == 0) {
+            valid.add(s.toString());
+            return;
+        }
+
+        if (open > 0) {
+            s.append('(');
+            generate(s, open - 1, close);
+            s.deleteCharAt(s.length() - 1);
+        }
+
+        if (close > 0) {
+            if (open < close) {
+                s.append(')');
+                generate(s, open, close - 1);
+                s.deleteCharAt(s.length() - 1);
+            }
+        }
+    }
+
+    public static TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null || root == p || root == q) {
+            return root;
+        }
+
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+
+        if (left == null) {
+            return right;
+        } else if (right == null) {
+            return left;
+        } else {
+            return root;
+        }
+    }
+
+    public static int[] nextGreaterElement(int[] A) {
+        int n = A.length;
+        int[] ans = new int[n];
+
+        Stack<Integer> stack = new Stack<>();
+        for (int i = n - 1; i >= 0; i--) {
+            while (!stack.isEmpty() && stack.peek() <= A[i]){
+                stack.pop();
+            }
+
+            ans[i]  = stack.isEmpty() ? -1 : stack.peek();
+            stack.push(A[i]);
+        }
+
+        return ans;
+    }
+
+    public static int[] dailyTemperatures(int[] A){
+        int n = A.length;
+        int[] ans = new int[n];
+        Deque<Integer> stack = new ArrayDeque<>();
+        for(int i = n-1; i >= 0; i--){
+            while (!stack.isEmpty() && A[stack.peek()] <= A[i]){
+                stack.pop();
+            }
+
+            if(stack.isEmpty()){
+                ans[i] = 0;
+            }else{
+                ans[i] = stack.peek() - i;
+            }
+
+            stack.push(i);
+        }
+
+        return ans;
+
+    }
+
+    public static int[] stockSpan(int[] prices){
+        int n = prices.length;
+        int[] span = new int[n];
+        Deque<Integer> stack = new ArrayDeque<>();
+
+        for(int i = 0; i < n; i++){
+            while (!stack.isEmpty() && prices[stack.peek()] <= prices[i]){
+                stack.pop();
+            }
+
+            if(stack.isEmpty()){
+                span[i] = i+1;
+            }else{
+                span[i] = i - stack.peek();
+            }
+
+            stack.push(i);
+        }
+
+        return span;
+    }
+
+    public int constructCost(int A, int[][] B) {
+
+
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> Integer.compare(a[2], b[2]));
+
+        for(int i = 0; i < B.length; i++){
+            pq.offer(B[i]);
+        }
+        int[] parent = new int[A];
+
+        for(int i = 0; i < A; i++){
+            parent[i] = i;
+        }
+
+        int ans = 0;
+        int edgesUsed = 0;
+
+        while(!pq.isEmpty()){
+            int[] node = pq.poll();
+            int u = node[0];
+            int v = node[1];
+            int c = node[2];
+
+            int pu = find(parent, u);
+            int pv = find(parent, v);
+
+            if(pu != pv){
+                parent[pu] = pv;
+                ans += c;
+                edgesUsed++;
+            }
+        }
+
+        return ans;
+
+    }
+
+    private static int find(int[] parent, int x){
+        if(parent[x] == x){
+            return x;
+        }
+
+        return parent[x] = find(parent, x);
     }
 
 }
