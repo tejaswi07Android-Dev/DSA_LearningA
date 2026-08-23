@@ -66,34 +66,76 @@ public class AdvanceGraph {
         graph[9].add(new Edge(9, 8));
     }
 
+
+
+    public static void createDirectedGraph(ArrayList<Edge>[] graph){
+        for (int i = 0; i < graph.length; i++) {
+            graph[i] = new ArrayList<>();
+        }
+
+        /*
+               1 ----- 3
+             /         | \
+           0           |  5 ---- 6
+             \         | /
+               2 ----- 4
+     */
+
+        graph[0].add(new Edge(0, 1));
+        graph[0].add(new Edge(0, 2));
+
+        graph[1].add(new Edge(1, 3));
+
+
+        graph[2].add(new Edge(2, 4));
+
+
+        graph[3].add(new Edge(3, 4));
+        graph[3].add(new Edge(3, 5));
+
+
+
+        graph[4].add(new Edge(4, 5));
+
+
+
+        graph[5].add(new Edge(5, 6));
+
+    }
+
     public static void main(String[] args) {
         int V = 10;
+        int DV = 6;
         ArrayList<Edge>[] graph = new ArrayList[V];
 
-        createGraph(graph);
-        boolean[] visited = new boolean[V];
-        System.out.print("BFS: ");
-        for (int i = 0; i < visited.length; i++) {
-            if (!visited[i]) {
-                bfs(graph, i, visited);
-            }
-        }
+        ArrayList<Edge>[] directedGraph = new ArrayList[DV];
 
-        System.out.println();
-        System.out.println("---------------------------------");
-//        boolean[] visited2 = new boolean[graph.length];
-        Arrays.fill(visited, false);
+        createGraph(graph);
+        createDirectedGraph(directedGraph);
+
+
+//        boolean[] visited = new boolean[V];
+        System.out.print("BFS: ");
+//        for (int i = 0; i < visited.length; i++) {
+//            if (!visited[i]) {
+//                bfs(graph, i, visited);
+//            }
+//        }
+
+//        System.out.println();
+//        System.out.println("---------------------------------");
+//        Arrays.fill(visited, false);
 
         System.out.print("DFS: ");
-        for (int i = 0; i < visited.length; i++) {
-            if (!visited[i]) {
-                dfs(graph, i, visited);
-            }
-        }
+//        for (int i = 0; i < visited.length; i++) {
+//            if (!visited[i]) {
+//                dfs(graph, i, visited);
+//            }
+//        }
 
-        System.out.println();
-        Arrays.fill(visited, false);
-        allPath(graph, 0, visited, "", 5);
+//        System.out.println();
+//        Arrays.fill(visited, false);
+//        allPath(graph, 0, visited, "", 5);
 
 
 
